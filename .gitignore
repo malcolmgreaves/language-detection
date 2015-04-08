@@ -5,6 +5,7 @@ projectFilesBackup
 
 ####    IDE
 .idea/*
+bin/*
 .idea_modules/*
 *.iml
 

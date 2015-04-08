@@ -21,33 +21,11 @@ resolvers ++= Seq(
 
 // Take note of the "%%" vs "%"! Double means use the Scala major (e.g. 2.11 vs 2.10) version dependency.
 libraryDependencies ++= Seq(
-  // Rapture libraries, Json parsing and such
-  //"com.propensive" %% "rapture-core" % "1.0.0",
-  //"com.propensive" %% "rapture-json-jackson" % "1.0.8",
-  //"com.propensive" %% "rapture-uri" % "1.0.0",
-  //"com.propensive" %% "rapture-codec" % "1.0.0",
-  //"com.propensive" %% "rapture-net" % "0.10.0",
+  "org.hamcrest" % "hamcrest-core" % "1.3",
   //
-  // Concurrent / Distributed Frameworks 
-  //"org.apache.spark" %% "spark-core" % "1.2.0",
-  //"com.typesafe.akka" %% "akka-actor" % "2.3.9",
-  //
-  // ML + NLP
-  //"org.apache.spark" %% "spark-mllib" % "1.2.0",
-  //"org.scalanlp" %% "breeze-core" % "0.4",
-  //"org.scalanlp" %% "breeze-math" % "0.4",
-  //"org.scalanlp" % "nak" % "1.1.3",
-  //"org.scalanlp" % "chalk" % "1.2.0",
-  //"edu.arizona.sista" % "processors" % "3.3",
-  //"edu.arizona.sista" % "processors" % "3.3" classifier "models",  
-  //
-  // Logging and other utilities
-  //"org.log4s" %% "log4s" % "1.1.4",
-  //"org.apache.logging.log4j" % "log4j" % "2.2",
-  //"org.slf4j" % "log4j-over-slf4j" % "1.7.12",
   // Testing
-  //"com.typesafe.akka" %% "akka-testkit" % "2.3.9" % "test",
-  //"org.scalatest" %% "scalatest" % "2.2.1" % "test"
+  "junit" % "junit" % "4.12",
+  "com.novocode" % "junit-interface" % "0.10" % "test" exclude("junit", "junit-dep")
 )
 
 scalacOptions ++= Seq(
