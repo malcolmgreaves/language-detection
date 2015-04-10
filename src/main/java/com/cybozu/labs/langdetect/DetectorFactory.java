@@ -93,7 +93,7 @@ public class DetectorFactory {
      * Load profiles from specified directory.
      * This method must be called once before language detection.
      *  
-     * @param profileDirectory profile directory path
+     * @param json_profiles all json-encoded profiles
      * @throws LangDetectException  Can't open profiles(error code = {@link ErrorCode#FileLoadError})
      *                              or profile's format is wrong (error code = {@link ErrorCode#FormatError})
      */
@@ -115,10 +115,10 @@ public class DetectorFactory {
     }
 
     /**
-     * @param profile
-     * @param langsize 
-     * @param index 
-     * @throws LangDetectException 
+     * @param profile profile
+     * @param index index
+     * @param langsize language size
+     * @throws LangDetectException if there's a problem
      */
     static /* package scope */ void addProfile(LangProfile profile, int index, int langsize) throws LangDetectException {
         String lang = profile.name;
@@ -150,7 +150,7 @@ public class DetectorFactory {
      * Construct Detector instance
      * 
      * @return Detector instance
-     * @throws LangDetectException 
+     * @throws LangDetectException if there's a problem
      */
     static public Detector create() throws LangDetectException {
         return createDetector();
@@ -161,7 +161,7 @@ public class DetectorFactory {
      * 
      * @param alpha smoothing parameter (default value = 0.5)
      * @return Detector instance
-     * @throws LangDetectException 
+     * @throws LangDetectException if there's a problem
      */
     public static Detector create(double alpha) throws LangDetectException {
         Detector detector = createDetector();

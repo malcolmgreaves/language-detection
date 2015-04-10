@@ -38,7 +38,7 @@ import com.cybozu.labs.langdetect.util.NGram;
  *         detector.append(text);
  *         return detector.detect();
  *     }
- *     public ArrayList<Language> detectLangs(String text) throws LangDetectException {
+ *     public ArrayList Language  detectLangs(String text) throws LangDetectException {
  *         Detector detector = DetectorFactory.create();
  *         detector.append(text);
  *         return detector.getProbabilities();
@@ -110,7 +110,7 @@ public class Detector {
     /**
      * Set prior information about language probabilities.
      * @param priorMap the priorMap to set
-     * @throws LangDetectException 
+     * @throws LangDetectException if there's a problem
      */
     public void setPriorMap(HashMap<String, Double> priorMap) throws LangDetectException {
         this.priorMap = new double[langlist.size()];
@@ -220,8 +220,7 @@ public class Detector {
     public ArrayList<Language> getProbabilities() throws LangDetectException {
         if (langprob == null) detectBlock();
 
-        ArrayList<Language> list = sortProbability(langprob);
-        return list;
+        return sortProbability(langprob);
     }
     
     /**

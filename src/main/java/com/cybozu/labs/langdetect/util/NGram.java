@@ -28,7 +28,7 @@ public class NGram {
 
     /**
      * Append a character into ngram buffer.
-     * @param ch
+     * @param ch character to add to the buffer
      */
     public void addChar(char ch) {
         ch = normalize(ch);
@@ -69,7 +69,7 @@ public class NGram {
     
     /**
      * Character Normalization
-     * @param ch
+     * @param ch character to normalize
      * @return Normalized character
      */
     static public char normalize(char ch) {
@@ -105,7 +105,7 @@ public class NGram {
     /**
      * Normalizer for Vietnamese.
      * Normalize Alphabet + Diacritical Mark(U+03xx) into U+1Exx .
-     * @param text
+     * @param text text to normalize
      * @return normalized text
      */
     public static String normalize_vi(String text) {

@@ -29,7 +29,7 @@ public class GenProfile {
      * @param lang target language name
      * @param file target database file path
      * @return Language profile instance
-     * @throws LangDetectException 
+     * @throws LangDetectException if there's a problem
      */
     public static LangProfile loadFromWikipediaAbstract(String lang, File file) throws LangDetectException {
 
@@ -86,7 +86,7 @@ public class GenProfile {
      * @param lang target language name
      * @param file target file path
      * @return Language profile instance
-     * @throws LangDetectException 
+     * @throws LangDetectException if there's a problem
      */
     public static LangProfile loadFromText(String lang, File file) throws LangDetectException {
 

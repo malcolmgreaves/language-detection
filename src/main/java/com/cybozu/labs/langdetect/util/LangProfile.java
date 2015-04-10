@@ -32,7 +32,7 @@ public class LangProfile {
     
     /**
      * Add n-gram to profile
-     * @param gram
+     * @param gram n-gram
      */
     public void add(String gram) {
         if (name == null || gram == null) return;   // Illegal
