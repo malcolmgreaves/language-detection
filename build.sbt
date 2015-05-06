@@ -24,7 +24,7 @@ libraryDependencies ++= Seq(
 )
 
 mappings in (Compile, packageBin) <+= baseDirectory map { base =>
-  (base / "src" / "main" / "java" / "com" / "cybozu" / "labs" / "langdetect" / "util" / "messages.properties" ) -> "com/cybozu/labs/langdetect/util/messages.properties"
+ (base / "src" / "main" / "java" / "com" / "cybozu" / "labs" / "langdetect" / "util" / "messages.properties" ) -> "com/cybozu/labs/langdetect/util/messages.properties"
 }
 
 testOptions += Tests.Argument(TestFrameworks.JUnit, "-q", "-v")
