@@ -9,7 +9,6 @@ enum ErrorCode {
 
 /**
  * @author Nakatani Shuyo
- *
  */
 public class LangDetectException extends Exception {
     private static final long serialVersionUID = 1L;

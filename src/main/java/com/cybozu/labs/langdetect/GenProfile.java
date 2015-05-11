@@ -1,31 +1,25 @@
 package com.cybozu.labs.langdetect;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.zip.GZIPInputStream;
+import com.cybozu.labs.langdetect.util.LangProfile;
+import com.cybozu.labs.langdetect.util.TagExtractor;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-
-import com.cybozu.labs.langdetect.util.LangProfile;
-import com.cybozu.labs.langdetect.util.TagExtractor;
+import java.io.*;
+import java.util.zip.GZIPInputStream;
 
 /**
  * Load Wikipedia's abstract XML as corpus and
  * generate its language profile in JSON format.
- * 
+ *
  * @author Nakatani Shuyo
- * 
  */
 public class GenProfile {
 
     /**
      * Load Wikipedia abstract database file and generate its language profile
+     *
      * @param lang target language name
      * @param file target database file path
      * @return Language profile instance
@@ -49,16 +43,16 @@ public class GenProfile {
                 reader = factory.createXMLStreamReader(br);
                 while (reader.hasNext()) {
                     switch (reader.next()) {
-                    case XMLStreamReader.START_ELEMENT:
-                        tagextractor.setTag(reader.getName().toString());
-                        break;
-                    case XMLStreamReader.CHARACTERS:
-                        tagextractor.add(reader.getText());
-                        break;
-                    case XMLStreamReader.END_ELEMENT:
-                        String text = tagextractor.closeTag();
-                        if (text != null) profile.update(text);
-                        break;
+                        case XMLStreamReader.START_ELEMENT:
+                            tagextractor.setTag(reader.getName().toString());
+                            break;
+                        case XMLStreamReader.CHARACTERS:
+                            tagextractor.add(reader.getText());
+                            break;
+                        case XMLStreamReader.END_ELEMENT:
+                            String text = tagextractor.closeTag();
+                            if (text != null) profile.update(text);
+                            break;
                     }
                 }
             } catch (XMLStreamException e) {
@@ -66,7 +60,8 @@ public class GenProfile {
             } finally {
                 try {
                     if (reader != null) reader.close();
-                } catch (XMLStreamException e) {}
+                } catch (XMLStreamException e) {
+                }
             }
             System.out.println(lang + ":" + tagextractor.count());
 
@@ -75,7 +70,8 @@ public class GenProfile {
         } finally {
             try {
                 if (br != null) br.close();
-            } catch (IOException e) {}
+            } catch (IOException e) {
+            }
         }
         return profile;
     }
@@ -83,6 +79,7 @@ public class GenProfile {
 
     /**
      * Load text file with UTF-8 and generate its language profile
+     *
      * @param lang target language name
      * @param file target file path
      * @return Language profile instance
@@ -110,7 +107,8 @@ public class GenProfile {
         } finally {
             try {
                 if (is != null) is.close();
-            } catch (IOException e) {}
+            } catch (IOException e) {
+            }
         }
         return profile;
     }

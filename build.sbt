@@ -23,10 +23,6 @@ libraryDependencies ++= Seq(
   "com.novocode" % "junit-interface" % "0.10" % "test" exclude("junit", "junit-dep")
 )
 
-mappings in (Compile, packageBin) <+= baseDirectory map { base =>
- (base / "src" / "main" / "java" / "com" / "cybozu" / "labs" / "langdetect" / "util" / "messages.properties" ) -> "com/cybozu/labs/langdetect/util/messages.properties"
-}
-
 testOptions += Tests.Argument(TestFrameworks.JUnit, "-q", "-v")
 
 instrumentSettings

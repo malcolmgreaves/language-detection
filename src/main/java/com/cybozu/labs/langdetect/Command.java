@@ -1,50 +1,44 @@
 package com.cybozu.labs.langdetect;
 
-import java.io.File;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-
 import com.cybozu.labs.langdetect.util.LangProfile;
-
 import net.arnx.jsonic.JSON;
 import net.arnx.jsonic.JSONException;
 
+import java.io.*;
+import java.util.*;
+
 /**
- * 
  * LangDetect Command Line Interface
  * <p>
  * This is a command line interface of Language Detection Library "LandDetect".
- * 
- * 
- * @author Nakatani Shuyo
  *
+ * @author Nakatani Shuyo
  */
 public class Command {
-    /** smoothing default parameter (ELE) */
+    /**
+     * smoothing default parameter (ELE)
+     */
     private static final double DEFAULT_ALPHA = 0.5;
 
-    /** for Command line easy parser */
-    private HashMap<String, String> opt_with_value = new HashMap<String, String>();
-    private HashMap<String, String> values = new HashMap<String, String>();
-    private HashSet<String> opt_without_value = new HashSet<String>();
-    private ArrayList<String> arglist = new ArrayList<String>();
+    /**
+     * for Command line easy parser
+     */
+    private Map<String, String> opt_with_value = new HashMap<String, String>();
+    private Map<String, String> values = new HashMap<String, String>();
+    private Set<String> opt_without_value = new HashSet<String>();
+    private List<String> arglist = new ArrayList<String>();
+    private DetectorFactory detectFact = new DetectorFactory();
 
     /**
      * Command line easy parser
+     *
      * @param args command line arguments
      */
     private void parse(String[] args) {
-        for(int i=0;i<args.length;++i) {
+        for (int i = 0; i < args.length; ++i) {
             if (opt_with_value.containsKey(args[i])) {
                 String key = opt_with_value.get(args[i]);
-                values.put(key, args[i+1]);
+                values.put(key, args[i + 1]);
                 ++i;
             } else if (args[i].startsWith("-")) {
                 opt_without_value.add(args[i]);
@@ -58,9 +52,11 @@ public class Command {
         opt_with_value.put(opt, key);
         values.put(key, value);
     }
+
     private String get(String key) {
         return values.get(key);
     }
+
     private Long getLong(String key) {
         String value = values.get(key);
         if (value == null) return null;
@@ -70,6 +66,7 @@ public class Command {
             return null;
         }
     }
+
     private double getDouble(String key, double defaultValue) {
         try {
             return Double.valueOf(values.get(key));
@@ -82,49 +79,51 @@ public class Command {
         return opt_without_value.contains(opt);
     }
 
-        
     /**
      * File search (easy glob)
+     *
      * @param directory directory path
      * @param pattern   searching file pattern with regular representation
      * @return matched file
      */
     private File searchFile(File directory, String pattern) {
-        for(File file : directory.listFiles()) {
-            if (file.getName().matches(pattern)) return file;
+        final File[] files = directory.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.getName().matches(pattern)) return file;
+            }
         }
         return null;
     }
 
-
     /**
      * load profiles
+     *
      * @return false if load success
      */
     private boolean loadProfile() {
-        String profileDirectory = get("directory") + "/"; 
+        String profileDirectory = get("directory") + "/";
         try {
-            DetectorFactory.loadProfile(profileDirectory);
+            detectFact.loadProfile(profileDirectory);
             Long seed = getLong("seed");
-            if (seed != null) DetectorFactory.setSeed(seed);
+            if (seed != null) detectFact.setSeed(seed);
             return false;
         } catch (LangDetectException e) {
             System.err.println("ERROR: " + e.getMessage());
             return true;
         }
     }
-    
+
     /**
      * Generate Language Profile from Wikipedia Abstract Database File
-     * 
+     * <p>
      * <pre>
      * usage: --genprofile -d [abstracts directory] [language names]
      * </pre>
-     * 
      */
     public void generateProfile() {
         File directory = new File(get("directory"));
-        for (String lang: arglist) {
+        for (String lang : arglist) {
             File file = searchFile(directory, lang + "wiki-.*-abstract\\.xml.*");
             if (file == null) {
                 System.err.println("Not Found abstract xml : lang = " + lang);
@@ -147,19 +146,19 @@ public class Command {
                 e.printStackTrace();
             } finally {
                 try {
-                    if (os!=null) os.close();
-                } catch (IOException e) {}
+                    if (os != null) os.close();
+                } catch (IOException e) {
+                }
             }
-        }        
+        }
     }
 
     /**
      * Generate Language Profile from Text File
-     * 
+     * <p>
      * <pre>
      * usage: --genprofile-text -l [language code] [text file path]
      * </pre>
-     * 
      */
     private void generateProfileFromText() {
         if (arglist.size() != 1) {
@@ -186,46 +185,41 @@ public class Command {
             File profile_path = new File(lang);
             os = new FileOutputStream(profile_path);
             JSON.encode(profile, os);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (LangDetectException e) {
+        } catch (JSONException | LangDetectException | IOException e) {
             e.printStackTrace();
         } finally {
             try {
-                if (os!=null) os.close();
-            } catch (IOException e) {}
+                if (os != null) os.close();
+            } catch (IOException ignored) {
+            }
         }
     }
 
     /**
      * Language detection test for each file (--detectlang option)
-     * 
+     * <p>
      * <pre>
      * usage: --detectlang -d [profile directory] -a [alpha] -s [seed] [test file(s)]
      * </pre>
-     * 
      */
     public void detectLang() {
         if (loadProfile()) return;
-        for (String filename: arglist) {
+        for (String filename : arglist) {
             BufferedReader is = null;
             try {
                 is = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "utf-8"));
 
-                Detector detector = DetectorFactory.create(getDouble("alpha", DEFAULT_ALPHA));
+                Detector detector = detectFact.create(getDouble("alpha", DEFAULT_ALPHA));
                 if (hasOpt("--debug")) detector.setVerbose();
                 detector.append(is);
                 System.out.println(filename + ":" + detector.getProbabilities());
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (LangDetectException e) {
+            } catch (IOException | LangDetectException e) {
                 e.printStackTrace();
             } finally {
                 try {
-                    if (is!=null) is.close();
-                } catch (IOException e) {}
+                    if (is != null) is.close();
+                } catch (IOException ignored) {
+                }
             }
 
         }
@@ -233,21 +227,20 @@ public class Command {
 
     /**
      * Batch Test of Language Detection (--batchtest option)
-     * 
+     * <p>
      * <pre>
      * usage: --batchtest -d [profile directory] -a [alpha] -s [seed] [test data(s)]
      * </pre>
-     * 
+     * <p>
      * The format of test data(s):
      * <pre>
      *   [correct language name]\t[text body for test]\n
      * </pre>
-     *  
      */
     public void batchTest() {
         if (loadProfile()) return;
         HashMap<String, ArrayList<String>> result = new HashMap<String, ArrayList<String>>();
-        for (String filename: arglist) {
+        for (String filename : arglist) {
             BufferedReader is = null;
             try {
                 is = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "utf-8"));
@@ -257,8 +250,8 @@ public class Command {
                     if (idx <= 0) continue;
                     String correctLang = line.substring(0, idx);
                     String text = line.substring(idx + 1);
-                    
-                    Detector detector = DetectorFactory.create(getDouble("alpha", DEFAULT_ALPHA));
+
+                    Detector detector = detectFact.create(getDouble("alpha", DEFAULT_ALPHA));
                     detector.append(text);
                     String lang = "";
                     try {
@@ -268,28 +261,28 @@ public class Command {
                     }
                     if (!result.containsKey(correctLang)) result.put(correctLang, new ArrayList<String>());
                     result.get(correctLang).add(lang);
-                    if (hasOpt("--debug")) System.out.println(correctLang + "," + lang + "," + (text.length()>100?text.substring(0, 100):text));
+                    if (hasOpt("--debug"))
+                        System.out.println(correctLang + "," + lang + "," + (text.length() > 100 ? text.substring(0, 100) : text));
                 }
-                
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (LangDetectException e) {
+
+            } catch (IOException | LangDetectException e) {
                 e.printStackTrace();
             } finally {
                 try {
-                    if (is!=null) is.close();
-                } catch (IOException e) {}
+                    if (is != null) is.close();
+                } catch (IOException ignored) {
+                }
             }
 
             ArrayList<String> langlist = new ArrayList<String>(result.keySet());
             Collections.sort(langlist);
 
             int totalCount = 0, totalCorrect = 0;
-            for ( String lang :langlist) {
+            for (String lang : langlist) {
                 HashMap<String, Integer> resultCount = new HashMap<String, Integer>();
                 int count = 0;
                 ArrayList<String> list = result.get(lang);
-                for (String detectedLang: list) {
+                for (String detectedLang : list) {
                     ++count;
                     if (resultCount.containsKey(detectedLang)) {
                         resultCount.put(detectedLang, resultCount.get(detectedLang) + 1);
@@ -297,20 +290,21 @@ public class Command {
                         resultCount.put(detectedLang, 1);
                     }
                 }
-                int correct = resultCount.containsKey(lang)?resultCount.get(lang):0;
-                double rate = correct / (double)count;
+                int correct = resultCount.containsKey(lang) ? resultCount.get(lang) : 0;
+                double rate = correct / (double) count;
                 System.out.println(String.format("%s (%d/%d=%.2f): %s", lang, correct, count, rate, resultCount));
                 totalCorrect += correct;
                 totalCount += count;
             }
-            System.out.println(String.format("total: %d/%d = %.3f", totalCorrect, totalCount, totalCorrect / (double)totalCount));
-            
+            System.out.println(String.format("total: %d/%d = %.3f", totalCorrect, totalCount, totalCorrect / (double) totalCount));
+
         }
-        
+
     }
 
     /**
      * Command Line Interface
+     *
      * @param args command line arguments
      */
     public static void main(String[] args) {
