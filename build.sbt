@@ -19,7 +19,7 @@ libraryDependencies ++= Seq(
   "net.arnx" % "jsonic" % "1.3.7",
   //
   // Testing
-  "junit" % "junit" % "4.12",
+  "junit" % "junit" % "4.12" % "test",
   "com.novocode" % "junit-interface" % "0.10" % "test" exclude("junit", "junit-dep")
 )
 
