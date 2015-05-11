@@ -1,6 +1,6 @@
 name := "language-detection"
 
-version := "1.0.1"
+version := "1.1.0"
 
 scalaVersion := "2.11.6"
 

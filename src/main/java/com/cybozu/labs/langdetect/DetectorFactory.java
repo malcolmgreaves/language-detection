@@ -11,19 +11,19 @@ import java.util.*;
 
 /**
  * Language Detector Factory Class
- * <p>
- * WARNING: HIGHLY MUTABLE CLASS. USE CAUTION IN CONCURRENT & DISTRIBUTED USE CASES!
- * <p>
+ *
+ * WARNING: HIGHLY MUTABLE CLASS. USE CAUTION IN CONCURRENT and DISTRIBUTED USE CASES!
+ *
  * This class manages an initialization and constructions of {@link Detector}.
- * <p>
+ *
  * Before using language detection library,
  * load profiles with {@link DetectorFactory#loadProfile(String)} method
  * and set initialization parameters.
- * <p>
+ *
  * When the language detection,
  * construct Detector instance via {@link DetectorFactory#create()}.
  * See also {@link Detector}'s sample code.
- * <p>
+
  * <ul>
  * <li>4x faster improvement based on Elmer Garduno's code. Thanks!</li>
  * </ul>

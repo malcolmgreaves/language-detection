@@ -10,20 +10,20 @@ import java.util.regex.Pattern;
 
 /**
  * Language Detector Class.
- * <p>
- * WARNING: HIGHLY MUTABLE CLASS. USE CAUTION IN CONCURRENT & DISTRIBUTED USE CASES!
- * <p>
+ *
+ * WARNING: HIGHLY MUTABLE CLASS. USE CAUTION IN CONCURRENT and DISTRIBUTED USE CASES!
+ *
  * {@link Detector} class is to detect language from specified text.
  * Its instance is able to be constructed via the factory class {@link DetectorFactory}.
- * <p>
+ *
  * After appending a target text to the {@link Detector} instance with {@link #append(Reader)} or {@link #append(String)},
  * the detector provides the language detection results for target text via {@link #detect()} or {@link #getProbabilities()}.
  * {@link #detect()} method returns a single language name which has the highest probability.
  * {@link #getProbabilities()} methods returns a list of multiple languages and their probabilities.
- * <p>
+ *
  * The detector has some parameters for language detection.
- * See {@link #setAlpha(double)}, {@link #setMaxTextLength(int)} and {@link #setPriorMap(HashMap)}.
- * <p>
+ * See {@link #setAlpha(double)}, {@link #setMaxTextLength(int)}
+ *
  * <pre>
  * import java.util.ArrayList;
  * import com.cybozu.labs.langdetect.Detector;
@@ -46,7 +46,6 @@ import java.util.regex.Pattern;
  *     }
  * }
  * </pre>
- * <p>
  * <ul>
  * <li>4x faster improvement based on Elmer Garduno's code. Thanks!</li>
  * </ul>

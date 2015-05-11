@@ -116,7 +116,6 @@ public class Command {
 
     /**
      * Generate Language Profile from Wikipedia Abstract Database File
-     * <p>
      * <pre>
      * usage: --genprofile -d [abstracts directory] [language names]
      * </pre>
@@ -197,7 +196,6 @@ public class Command {
 
     /**
      * Language detection test for each file (--detectlang option)
-     * <p>
      * <pre>
      * usage: --detectlang -d [profile directory] -a [alpha] -s [seed] [test file(s)]
      * </pre>
@@ -227,11 +225,9 @@ public class Command {
 
     /**
      * Batch Test of Language Detection (--batchtest option)
-     * <p>
      * <pre>
      * usage: --batchtest -d [profile directory] -a [alpha] -s [seed] [test data(s)]
      * </pre>
-     * <p>
      * The format of test data(s):
      * <pre>
      *   [correct language name]\t[text body for test]\n
