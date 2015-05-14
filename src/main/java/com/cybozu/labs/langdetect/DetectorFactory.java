@@ -42,8 +42,8 @@ public class DetectorFactory {
 
     public DetectorFactory() {
         this(
-                new HashMap<>(),
-                new ArrayList<>(),
+                new HashMap<String, double[]>(),
+                new ArrayList<String>(),
                 Double.doubleToLongBits((Math.random() * 10000))
         );
     }

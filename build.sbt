@@ -23,6 +23,12 @@ libraryDependencies ++= Seq(
   "com.novocode" % "junit-interface" % "0.10" % "test" exclude("junit", "junit-dep")
 )
 
+val javaVersion = "1.7"
+
+javacOptions in (Compile, compile) ++= Seq("-source", javaVersion, "-target", javaVersion) 
+
+javacOptions in (doc) ++= Seq("-source", javaVersion) 
+
 testOptions += Tests.Argument(TestFrameworks.JUnit, "-q", "-v")
 
 instrumentSettings
