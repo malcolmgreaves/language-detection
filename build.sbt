@@ -31,9 +31,9 @@ javacOptions in (doc) ++= Seq("-source", javaVersion)
 
 testOptions += Tests.Argument(TestFrameworks.JUnit, "-q", "-v")
 
-publishMavenStyle := true
+instrumentSettings
 
-publishArtifact in Test := false
+packAutoSettings
 
 publishTo := {
     val nexus = "https://oss.sonatype.org/"
@@ -43,11 +43,30 @@ publishTo := {
         Some("releases"  at nexus + "service/local/staging/deploy/maven2")
 }
 
-licenses := Seq("Apache 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.html"))
+publishMavenStyle := true
 
-homepage := Some(url("https://github.com/malcolmgreaves/language-detection"))
+publishArtifact in Test := false
 
-instrumentSettings
+pomIncludeRepository := { _ => false }
 
-packAutoSettings
-
+pomExtra := (
+  <url>https://github.com/malcolmgreaves/language-detection</url>
+  <licenses>
+    <license>
+      <name>Apache 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <scm>
+    <url>git@github.com:malcolmgreaves/language-detection.git</url>
+    <connection>scm:git:git@github.com:malcolmgreaves/language-detection.git</connection>
+  </scm>
+  <developers>
+    <developer>
+      <id>malcolmgreaves</id>
+      <name>Malcolm Greaves</name>
+      <url>https://github.com/malcolmgreaves</url>
+    </developer>
+  </developers>
+)
