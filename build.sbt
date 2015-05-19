@@ -31,6 +31,22 @@ javacOptions in (doc) ++= Seq("-source", javaVersion)
 
 testOptions += Tests.Argument(TestFrameworks.JUnit, "-q", "-v")
 
+publishMavenStyle := true
+
+publishArtifact in Test := false
+
+publishTo := {
+    val nexus = "https://oss.sonatype.org/"
+    if (isSnapshot.value)
+        Some("snapshots" at nexus + "content/repositories/snapshots")
+    else
+        Some("releases"  at nexus + "service/local/staging/deploy/maven2")
+}
+
+licenses := Seq("Apache 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.html"))
+
+homepage := Some(url("https://github.com/malcolmgreaves/language-detection"))
+
 instrumentSettings
 
 packAutoSettings
