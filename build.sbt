@@ -1,12 +1,12 @@
-name := "language-detection"
+organization := "io.malcolmgreaves"
+
+name := "cybozu-language-detection"
 
 version := "1.1.0"
 
 scalaVersion := "2.11.6"
 
 crossScalaVersions := Seq("2.11.6", "2.10.5")
-
-organization := "cybozu"
 
 resolvers ++= Seq(
   "Sonatype Releases" at "https://oss.sonatype.org/content/repositories/releases/",
