@@ -1,5 +1,7 @@
 package com.cybozu.labs.langdetect;
 
+import java.io.Serializable;
+
 /**
  * @author Nakatani Shuyo
  */
@@ -10,7 +12,7 @@ enum ErrorCode {
 /**
  * @author Nakatani Shuyo
  */
-public class LangDetectException extends Exception {
+public class LangDetectException extends Exception implements Serializable {
     private static final long serialVersionUID = 1L;
     private ErrorCode code;
 

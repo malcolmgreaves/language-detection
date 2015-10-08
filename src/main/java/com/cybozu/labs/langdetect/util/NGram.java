@@ -1,5 +1,6 @@
 package com.cybozu.labs.langdetect.util;
 
+import java.io.Serializable;
 import java.lang.Character.UnicodeBlock;
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -11,7 +12,7 @@ import java.util.regex.Pattern;
  *
  * @author Nakatani Shuyo
  */
-public class NGram {
+public class NGram implements Serializable {
     private static final String LATIN1_EXCLUDED = Messages.getString("NGram.LATIN1_EXCLUDE");
     public final static int N_GRAM = 3;
     public static HashMap<Character, Character> cjk_map;

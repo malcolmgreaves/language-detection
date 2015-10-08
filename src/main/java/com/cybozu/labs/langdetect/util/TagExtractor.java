@@ -1,12 +1,14 @@
 package com.cybozu.labs.langdetect.util;
 
+import java.io.Serializable;
+
 /**
  * {@link TagExtractor} is a class which extracts inner texts of specified tag.
  * Users don't use this class directly.
  *
  * @author Nakatani Shuyo
  */
-public class TagExtractor {
+public class TagExtractor implements Serializable {
     /* package scope */ String target_;
     /* package scope */ int threshold_;
     /* package scope */ StringBuffer buf_;

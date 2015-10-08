@@ -15,7 +15,7 @@ import java.util.zip.GZIPInputStream;
  *
  * @author Nakatani Shuyo
  */
-public class GenProfile {
+public class GenProfile implements Serializable {
 
     /**
      * Load Wikipedia abstract database file and generate its language profile

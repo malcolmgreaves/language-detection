@@ -4,6 +4,7 @@ import com.cybozu.labs.langdetect.util.NGram;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.io.Serializable;
 import java.lang.Character.UnicodeBlock;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -54,7 +55,7 @@ import java.util.regex.Pattern;
  * @author Malcolm Greaves (editor)
  * @see DetectorFactory
  */
-public class Detector {
+public class Detector implements Serializable {
     private static final double ALPHA_DEFAULT = 0.5;
     private static final double ALPHA_WIDTH = 0.05;
 

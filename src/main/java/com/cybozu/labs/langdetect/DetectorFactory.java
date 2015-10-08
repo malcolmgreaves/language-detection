@@ -7,6 +7,7 @@ import net.arnx.jsonic.JSONException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -32,7 +33,7 @@ import java.util.*;
  * @author Malcolm Greaves (editor)
  * @see Detector
  */
-public class DetectorFactory {
+public class DetectorFactory implements Serializable {
 
     private Map<String, double[]> wordLangProbMap;
 

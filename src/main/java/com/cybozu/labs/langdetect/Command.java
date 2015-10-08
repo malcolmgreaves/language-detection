@@ -14,7 +14,7 @@ import java.util.*;
  *
  * @author Nakatani Shuyo
  */
-public class Command {
+public class Command implements Serializable {
     /**
      * smoothing default parameter (ELE)
      */

@@ -1,5 +1,6 @@
 package com.cybozu.labs.langdetect;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  * @author Nakatani Shuyo
  * @see Detector#getProbabilities()
  */
-public class Language {
+public class Language implements Serializable {
     public String lang;
     public double prob;
 

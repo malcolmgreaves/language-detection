@@ -1,5 +1,6 @@
 package com.cybozu.labs.langdetect.util;
 
+import java.io.Serializable;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -9,7 +10,7 @@ import java.util.ResourceBundle;
  *
  * @author Nakatani Shuyo
  */
-public class Messages {
+public class Messages implements Serializable {
     private static final String BUNDLE_NAME = "com.cybozu.labs.langdetect.util.messages"; //$NON-NLS-1$
 
     private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
