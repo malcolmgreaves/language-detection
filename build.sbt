@@ -2,7 +2,7 @@ organization := "io.malcolmgreaves"
 
 name := "cybozu-language-detection"
 
-version := "1.1.1"
+version := "1.1.2"
 
 scalaVersion := "2.11.6"
 
