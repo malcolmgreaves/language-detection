@@ -24,10 +24,11 @@ libraryDependencies ++= Seq(
   "org.hamcrest" % "hamcrest-core" % "1.3",
   "net.arnx"     % "jsonic"        % "1.3.7",
   // testing
-  "org.apache.spark" %% "spark-core"     % "1.4.0" % Test,
-  "org.scalatest"    %% "scalatest"      % "2.2.4" % Test,
-  "junit"            % "junit"           % "4.12"  % Test,
-  "com.novocode"     % "junit-interface" % "0.10"  % Test exclude("junit", "junit-dep")
+  "io.malcolmgreaves"    %% "sparkmod"       % "0.1.1-SNAPSHOT" % Test,
+  "com.gonitro.research" %% "spark-testing"  % "0.0.1" % Test,
+  "org.scalatest"        %% "scalatest"      % "2.2.4" % Test,
+  "junit"                % "junit"           % "4.12"  % Test,
+  "com.novocode"         % "junit-interface" % "0.10"  % Test exclude("junit", "junit-dep")
 )
 resolvers := Seq(
   "Sonatype Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",

@@ -6,6 +6,7 @@ import com.nitro.test.SparkTesting
 import com.nitro.spark.RddSerializedOps
 
 import scala.reflect.ClassTag
+import scala.util.Success
 
 class SparkLangDetectTest extends SparkTesting with Serializable {
 
@@ -34,3 +35,4 @@ class SparkLangDetectTest extends SparkTesting with Serializable {
   }
 
 }
+
